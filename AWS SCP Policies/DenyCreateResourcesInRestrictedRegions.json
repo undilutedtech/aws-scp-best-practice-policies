@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyCreateResourcesInRestrictedRegions",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:RunInstances",
+                "s3:CreateBucket",
+                "dynamodb:CreateTable",
+                "lambda:CreateFunction",
+                "rds:CreateDBInstance",
+                "sqs:CreateQueue"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "ForAnyValue:StringNotEquals": {
+                    "aws:RequestedRegion": [
+                        "us-west-1",
+                        "us-west-2",
+                        "eu-west-1"
+                    ]
+                }
+            }
+        }
+    ]
+}
